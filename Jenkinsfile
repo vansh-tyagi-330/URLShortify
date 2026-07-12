@@ -11,15 +11,15 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t urlshortify .'
+                sh 'docker build -t urlshortify .'
             }
         }
 
         stage('Run Docker Container') {
             steps {
-                bat '''
-                docker stop urlshortify-container || exit /b 0
-                docker rm urlshortify-container || exit /b 0
+                sh '''
+                docker stop urlshortify-container || true
+                docker rm urlshortify-container || true
                 docker run -d -p 3000:3000 --name urlshortify-container urlshortify
                 '''
             }
